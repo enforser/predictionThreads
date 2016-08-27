@@ -20,11 +20,23 @@ sub space {
 
 sub printResults {
 	space();
-	print "Enter the year of the season to see their results\n";
-	chomp ($year = <>);
-	print "Enter the name of the month";
-	chomp ($month = <>);
-	print "    CURRENT RESULTS\n";
-	print "    ---------------\n\n";
+	print "\n\n  Would you like to see monthly or yearly results? (m/y)\n\n  ";
+	chomp ($choice = <>);
+	if ($choice eq "m") {
+		print "\n		Enter the name of the month\n\n  ";
+		chomp ($month = <>);
+		open ($file, "scores/month/" . uc($month) . ".log");
+	}
+	else {
+		print "\n  Enter the year of the season to see their results\n\n  ";
+		chomp ($year = <>);
+		print "\n\n";
+		open ($file, "scores/year/$year.log");
+	}
+	print     "\n           RESULTS";
+	print     "\n           -------\n";
+	while (my $line = <$file>) {
+		print "\n      " . $line;
+	}
 }
 1;

@@ -41,7 +41,7 @@ while (1) {
 		
 	}
 	elsif ($command == 4) {
-		
+		Print::printResults();
 	}
 	elsif ($command == 0) {
 		exit();
