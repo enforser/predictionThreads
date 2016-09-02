@@ -51,7 +51,8 @@ sub compileScores {
 	@usersScores;
 	my @logContent = split /\n/, $logContent;
 	for ($count = 0; $count < @logContent; $count++) {
-		@temp = split / /, @logContent[$count];
+		@temp = split /\s+/, @logContent[$count];
+		print @temp;
 		@tempAnswers = (@temp[7], @temp[8], @temp[9], @temp[10]);
 		@tempUser;
 		@tempUser[0] = @temp[5];
@@ -79,7 +80,7 @@ sub updateScores {
 	for ($count = 0; $count < @scores; $count++) {
 		#see if user has played before
 		if (checkUser(@scores[$count]->[0], $fullDocument)) {
-			print "User has played before";
+			print "\n" . @scores[$count]->[0] . " has played before - updating score.\n";
 			#upgrade users score
 			#cycle through past users
 			for ($index = 0; $index < @currScores; $index++) {
@@ -92,9 +93,8 @@ sub updateScores {
 			}
 		}
 		else {
-			print "Printing..\n";
+			print "\nAdding new user" . @scores[$count]->[0] . " to the log\n";
 			$str = @scores[$count]->[0] . " " . @scores[$count]->[1] . "\n" . $str;
-			print $str . "\n";
 		}
 		#$str = @scores[$count]->[0] . " " . @scores[$count]->[1] . "\n" . $str;
 	}
@@ -133,7 +133,7 @@ sub archiveFile {
 	my ($filename) = @_[0];
 	my ($type) = @_[1];
 	File::Copy::copy($filename, "scores/archives/" . localtime . $type . ".log") or die "cannot copy file";
-	unlink $filename;
+	unlink $filename or die "Error: Unlink failed.";
 }
 
 sub getFile {

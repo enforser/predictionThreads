@@ -9,9 +9,9 @@ use Print;
 use Results;
 
 my $client_id       = "KAgssi0vqHC1Vw";
-my $secret          = "secret";
+my $secret          = "qS0uwpSXhz4L4WLb7WXzUFlXww0";
 my $username        = "OttawaSenatorsBot";
-my $password        = "password";
+my $password        = "beyblade";
 
 # Create a Reddit::Client object and authorize in one step
 my $reddit = new Reddit::Client(
@@ -38,7 +38,7 @@ while (1) {
 		Results::compileScores();
 	}
 	elsif ($command == 3) {
-		
+		Comm::makePost($reddit);
 	}
 	elsif ($command == 4) {
 		Print::printResults();
