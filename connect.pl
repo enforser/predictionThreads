@@ -9,9 +9,9 @@ use Print;
 use Results;
 
 my $client_id       = "KAgssi0vqHC1Vw";
-my $secret          = "qS0uwpSXhz4L4WLb7WXzUFlXww0";
+my $secret          = "secret";
 my $username        = "OttawaSenatorsBot";
-my $password        = "beyblade";
+my $password        = "pass";
 
 # Create a Reddit::Client object and authorize in one step
 my $reddit = new Reddit::Client(
