@@ -12,11 +12,18 @@ sub getData{
 		if (checkComment($currcomm)) {
 			$str = $currcomm->{body};
 			$str =~ s/^\s+|\s+$//g;
+			$str =~ s/\n+/ /g;
+			$str =~ s/-/ /g;
+			$str =~ s/\n+/ /g;
+			$str =~ s/ +/ /g;
+			$str = uc($str);
 			$str = $currcomm->{author} . " " . $currcomm->{created} . " " . $str;
 			@array[$count] = $str;
 			$count = $count + 1;
 		}
-		#$currcomm->reply(text=>'this is test comment');
+		else {
+		  print $currcomm->{body};
+		}
 	}
 	return @array;
 }
@@ -25,13 +32,17 @@ sub getData{
 #Replies to comment if invalid
 sub checkComment {
 	my ($comment) = @_;
+	$find = "\n";
+	$replace = " ";
 	$reply = "Oops, I wasn't capable of logging your comment due to an error in the formatting. Please ensure that in future threads you utilize the guidelines provided.\n\n";
 	$reply = $reply . "This comment will work as a flag for my owner to record your answers manually.\n\n";
 	$reply = $reply . "----------------------------------------------\n\n";
 	$reply . $reply . "*I am a bot. If you have any issues message my owner /u/mandm4s*";
 	$str = $comment->{body};
+	$str =~ s/\n+/ /g;
+	$str =~ s/ +/ /g;
 	$str =~ s/^\s+|\s+$//g;
-	my @answers = split / /, $str;
+	my @answers = split /[-\s+]/, $str;
 	#provide checking equations on each character
 	if (@answers > 4 || @answers < 4) {
 		$comment->reply($reply);
@@ -50,7 +61,7 @@ sub getPost {
 	print "\n\n  .....Please wait while post data is being recovered..... \n\n";
 	print "\n\n";
 	my ($reddit) = @_;
-	$posts = $reddit->fetch_links(subreddit=>'test', limit=>'1000');
+	$posts = $reddit->fetch_links(subreddit=>'ottawasenators', limit=>'1000', view=>'new');
 	$post;
 	foreach my $currpost (@$posts) {
 		if ($currpost->{author} eq 'OttawaSenatorsBot') {
@@ -99,7 +110,7 @@ sub makePost {
 	$body = $body . "----------------------------------------------\n\n";
 	$body = $body . "*I am a bot. If you have any issues or concerns message my creator /u/mandm4s*";
 	
-	$reddit->submit_text(subreddit=>'test', title=>$title, text=>$body);
+	$reddit->submit_text(subreddit=>'ottawasenators', title=>$title, text=>$body);
 }
 
 1;
