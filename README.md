@@ -47,3 +47,10 @@ Once it confirms that all the files exist then the score .log files will be upda
 ## Displaying the Scores
 
 This will prompt the user to choose between seeing the monthly scores or the year, and display the file that is associated with the choice made. 
+
+
+# Required Software
+
+This program is written using Perl (v5.22.2), and uses the Reddit::Client module which acts a Perl wrapper for the reddit API. 
+
+To run the program you must have access to a reddit development account. 
